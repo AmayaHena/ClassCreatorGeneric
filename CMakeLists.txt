@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(classCreator)
+project(classCreatorG)
 
 set(SRCS
     src/main.cpp
@@ -24,4 +24,4 @@ set(HEADERS
     )
 
 add_executable(classCreator ${SRCS} ${HEADERS})
-target_include_directories(classCreator PUBLIC inc)
+target_include_directories(classCreatorG PUBLIC inc)
