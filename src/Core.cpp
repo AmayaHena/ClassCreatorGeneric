@@ -20,8 +20,6 @@ bool Core::architectCode(const std::vector<std::string> &arch_comp)
 			path = path +  "/" + tmp[i];
 			if (_d.createDir(_p.getProjectName() + "/inc" + path)) {
 				_s.createHppArch(_p, _w, _f.getFileHpp(), tmp, path, i, path_past);
-				if (_p.getInterface())
-					_s.createInterfaceArch(_p, _w, _f.getFileInterface(), tmp, path, i, path_past);
 				_inc.push_back("inc" + path + "/" + tmp[i] + ".hpp");
 			}
 			if (_d.createDir(_p.getProjectName() + "/src" + path)) {
@@ -44,8 +42,6 @@ void Core::minimalCode()
 	_d.createDir(_p.getProjectName(), "src");
 	_s.createHppRoot(_p, _w, _f.getFileHpp(), _p.getProjectName());
 	_s.createCppRoot(_p, _w, _f.getFileCpp(), _p.getProjectName());
-	if (_p.getInterface())
-		_s.createInterfaceRoot(_p, _w, _f.getFileInterface(), _p.getProjectName());
 	_inc.push_back("inc/" + _p.getProjectName() + ".hpp");
 	_src.push_back("src/" + _p.getProjectName() + ".cpp");
 }
