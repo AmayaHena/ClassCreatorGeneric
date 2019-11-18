@@ -11,24 +11,19 @@
 
 #include "File.hpp"
 
-std::vector<std::string> File::getMain(void)
+std::vector<std::string> File::getFileSrc(void)
 {
-	return _main;
+	return _fileSrc;
 }
 
-std::vector<std::string> File::getFileCpp(void)
+std::vector<std::string> File::getFileInc(void)
 {
-	return _fileCpp;
+	return _fileInc;
 }
 
-std::vector<std::string> File::getFileHpp(void)
+std::vector<std::string> File::getFileStart(void)
 {
-	return _fileHpp;
-}
-
-std::vector<std::string> File::getFileInterface(void)
-{
-	return _fileInterface;
+	return _fileStart;
 }
 
 std::vector<std::string> File::getHeader(void)
@@ -94,21 +89,19 @@ std::vector<std::string> File::loadFile(const std::string &path, const bool requ
 
 bool File::loadConfig(Parser &p)
 {
-	if (checkDirExist("config") == false)
+	_fileSrc = loadFile(p.getPathSrc(), true);
+	if (_fileSrc.empty())
 		return false;
-	_fileHpp = loadFile("config/file.hpp", true);
-	_fileCpp = loadFile("config/file.cpp", true);
-	_header = loadFile("config/header.txt", true);
-	if (_fileHpp.empty() || _fileCpp.empty() || _header.empty())
+	_fileStart = loadFile(p.getPathStart(), true);
+	if (_fileStart.empty() && !p.getPathStart().empty())
 		return false;
-	_fileInterface = loadFile("config/interface.hpp", true);
-	_main = loadFile("config/main.cpp", p.getMain());
+	_fileInc = loadFile(p.getPathInc(), true);
+	if (_fileInc.empty() && !p.getPathInc().empty())
+		return false;
 	_make = loadFile("config/makefile", p.getMakefile());
 	_cmake = loadFile("config/CMakeLists.txt", p.getCMake());
-	if ((p.getMain() && _main.empty())
-		|| (p.getMakefile() && _make.empty())
-		|| (p.getCMake() && _cmake.empty())
-		|| (p.getInterface() && _fileInterface.empty()))
+	if ((p.getMakefile() && _make.empty())
+		|| (p.getCMake() && _cmake.empty()))
 		return false;
 	return true;
 }
