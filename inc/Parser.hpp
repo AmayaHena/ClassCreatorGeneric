@@ -31,29 +31,42 @@ class Parser {
 
 		/* Getters */
 		std::string getProjectName();
-		bool getMain();
 		std::vector<std::string> getSubFiles();
-		bool getInheritance();
-		bool getInterface();
+		std::string getArchitecture();
+		std::string getCompiler();
+		std::string getPathStart();
+		std::string getExthStart();
+		std::string getPathSrc();
+		std::string getExthSrc();
+		std::string getPathInc();
+		std::string getExtInc();
 		bool getMakefile();
 		bool getCMake();
-		std::string getArchitecture();
 
 	private:
 
 		/* Parsing AV */
 		void AVOptions(const std::vector<std::string> &v, const int i);
 		bool parsingAV(const std::vector<std::string> &v);
+		void extension();
+		std::string parseExt(std::string &s);
+
+		/* Verification */
+		bool configCheck();
 
 		/* Variables - Ressources for user inputs */
 		std::string _project_name;
-		bool _main;
 		std::vector<std::string> _sub_files;
-		bool _interface;
-		bool _inheritance;
+		std::string _architecture;
+		std::string _compiler;
+		std::string _path_start;
+		std::string _ext_start;
+		std::string _path_src;
+		std::string _ext_src;
+		std::string _path_inc;
+		std::string _ext_inc;
 		bool _makefile;
 		bool _cmake;
-		std::string _architecture;
 
 };
 
