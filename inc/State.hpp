@@ -27,17 +27,15 @@ class State {
 		/* Tools - state the writer and launch writer */
 
 		/* CPP HPP Interface for complex arch */
-		void createHppArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &tmp, const std::string &path, unsigned int i, const std::string &past_path);
-		void createCppArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &tmp, const std::string &path, unsigned int i);
-		void createInterfaceArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &tmp, const std::string &path, unsigned int i, const std::string &past_path);
+		void createInc(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &path, unsigned int i, std::string name);
+		void createSrc(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &path, unsigned int i, std::string name);
 
 		/* CPP HPP Interface at Root */
-		void createHppRoot(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s);
-		void createCppRoot(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s);
-		void createInterfaceRoot(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s);
+		void createIncRoot(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s);
+		void createSrcRoot(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s);
 
 		/* main Makefile CMake at Root */
-		void generateMain(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &inc);
+		void generateStart(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &inc);
 		void generateMakefile(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &src);
 		void generateCMake(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &inc, const std::vector<std::string> &src);
 

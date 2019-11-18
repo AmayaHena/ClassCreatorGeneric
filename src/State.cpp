@@ -7,103 +7,37 @@
 
 #include "State.hpp"
 
-void State::createHppArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &tmp, const std::string &path, unsigned int i, const std::string &past_path)
+void State::createInc(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &path, unsigned int i, std::string name)
 {
 	w.setFile(file);
-
-	std::string path_no_slash = path;
-	path_no_slash.erase(path_no_slash.begin());
-
-	std::string past_path_no_slash = past_path;
-	past_path_no_slash.erase(past_path_no_slash.begin());
-
-	if (p.getInheritance() && !p.getInterface()) {
-		if (i == 0) {
-			w.setInclude(p.getProjectName() + ".hpp");
-			w.setInheritance(p.getProjectName());
-		} else {
-			w.setInclude(past_path_no_slash + "/" + tmp[i - 1] + ".hpp");
-			w.setInheritance(tmp[i - 1]);
-		}
-	}
-	if (p.getInterface()) {
-		w.setInclude(path_no_slash + "/I" + tmp[i] + ".hpp");
-		w.setInheritance("I" + tmp[i]);
-	}
-	w.create(tmp[i], p.getProjectName() + "/inc" + path, ".hpp");
+	w.create(name , p.getProjectName() + "/inc" + path, p.getExtInc());
 }
 
-void State::createCppArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &tmp, const std::string &path, unsigned int i)
+void State::createSrc(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &path, unsigned int i, std::string name)
 {
 	w.setFile(file);
-
-	std::string path_no_slash = path;
-	path_no_slash.erase(path_no_slash.begin());
-
-	if (p.getInheritance()) {
-		if (i == 0)
-			w.setInheritance(p.getProjectName());
-		else
-			w.setInheritance(tmp[i - 1]);
-	}
-	if (p.getInterface())
-		w.setInheritance("I" + tmp[i]);
-	if (i == 0)
-		w.setInclude(path_no_slash + "/" + tmp[i] + ".hpp");
-	else
-		w.setInclude(path_no_slash + "/" + tmp[i] + ".hpp");
-	w.create(tmp[i], p.getProjectName() + "/src" + path, ".cpp");
+	w.create(name, p.getProjectName() + "/src" + path, p.getExthSrc());
 }
 
-void State::createInterfaceArch(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &tmp, const std::string &path, unsigned int i, const std::string &past_path)
+void State::createIncRoot(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s)
 {
 	w.setFile(file);
-
-	std::string path_no_slash = past_path;
-	path_no_slash.erase(path_no_slash.begin());
-
-	if (p.getInheritance()) {
-		if (i == 0) {
-			w.setInclude("I" + p.getProjectName() + ".hpp");
-			w.setInheritance("I" + p.getProjectName());
-		} else {
-			w.setInclude(path_no_slash + "/" + "I" + tmp[i - 1] + ".hpp");
-			w.setInheritance("I" + tmp[i - 1]);
-		}
-	}
-	w.create("I" + tmp[i], p.getProjectName() + "/inc" + path, ".hpp");
+	w.create(s, p.getProjectName() + "/inc", p.getExtInc());
 }
 
-void State::createHppRoot(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s)
+void State::createSrcRoot(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s)
 {
 	w.setFile(file);
-	if (p.getInterface()) {
-		w.setInclude("I" + p.getProjectName() + ".hpp");
-		w.setInheritance("I" + p.getProjectName());
-	}
-	w.create(s, p.getProjectName() + "/inc", ".hpp");
+	w.create(s, p.getProjectName() + "/src", p.getExthSrc());
 }
 
-void State::createCppRoot(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s)
+void State::generateStart(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &inc)
 {
-	w.setFile(file);
-	w.setInclude("../inc/" + s + ".hpp");
-	w.create(s, p.getProjectName() + "/src", ".cpp");
-}
-
-void State::createInterfaceRoot(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s)
-{
-	w.setFile(file);
-	w.create("I" + s, p.getProjectName() + "/inc", ".hpp");
-}
-
-void State::generateMain(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &inc)
-{
-	if (!p.getMain())
+	if (p.getPathStart().empty())
 		return;
 	w.setFile(file);
 	w.setInc(inc);
-	w.create("main", p.getProjectName(), "main");
+	w.create("start", p.getProjectName(), p.getExthStart());
 }
 
 void State::generateMakefile(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &src)
