@@ -57,7 +57,6 @@ void Writer::cleanRessources()
 	_file.clear();
 	_src.clear();
 	_inc.clear();
-	_compiler.clear();
 }
 
 int Writer::occurenceNbInS(const std::string &s, const std::string &tag)
