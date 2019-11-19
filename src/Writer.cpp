@@ -130,7 +130,7 @@ void Writer::useTagMake(const std::string &tag, const std::string &path)
 	}
 }
 
-void Writer::useTag(const std::string &tag, const std::string &name, const std::string &path, const std::string &type)
+void Writer::useTag(const std::string &tag, const std::string &path, const std::string &type)
 {
 	if (tag == "Header") {
 		Writer::writeVectorInFile("", _header, "");
