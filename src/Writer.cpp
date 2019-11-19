@@ -16,9 +16,6 @@
 
 Writer::Writer() : _tag_ref("/*#!")
 {
-	_type[".hpp"] = HPP;
-	_type[".cpp"] = CPP;
-	_type["main"] = MAIN;
 	_type["Makefile"] = MAKE;
 	_type["CMake"] = CMAKE;
 
@@ -26,18 +23,7 @@ Writer::Writer() : _tag_ref("/*#!")
 	_tagMake["SrcMakefile"] = SRCMAKE;
 	_tagMake["SrcCMake"] = SRCCMAKE;
 	_tagMake["IncCMake"] = INCCMAKE;
-
-	_tagHPP["FileName"] = FILENAME;
-	_tagHPP["ContructorMethod"] = CONSTRUCTOR;
-	_tagHPP["DestructorMethod"] = DESTRUCTOR;
-	_tagHPP["IncludeInheritanceHpp"] = INCINH;
-	_tagHPP["InheritanceHpp"] = INHHPP;
-
-	_tagCPP["IncludeMain"] = INCMAIN;
-	_tagCPP["IncludeCpp"] = INCCPP;
-	_tagCPP["InheritanceCpp"] = INHCPP;
-	_tagCPP["ConstructorCpp"] = CONSTRUCTORCPP;
-	_tagCPP["DestructorCpp"] = DESTRUCTORCPP;
+	_tagMake["Compiler"] = COMPILER;
 }
 
 void Writer::setHeader(std::vector<std::string> v)
@@ -60,24 +46,12 @@ void Writer::setInc(const std::vector<std::string> &v)
 	_inc = v;
 }
 
-void Writer::setInheritance(const std::string &s)
-{
-	_inheritance = s;
-}
-
-void Writer::setInclude(const std::string &s)
-{
-	_include = s;
-}
-
 void Writer::cleanRessources()
 {
 	_of.close();
 	_file.clear();
 	_src.clear();
 	_inc.clear();
-	_inheritance.clear();
-	_include.clear();
 }
 
 int Writer::occurenceNbInS(const std::string &s, const std::string &tag)
@@ -108,20 +82,14 @@ std::ofstream Writer::createFile(const std::string &name, const std::string &pat
 	std::string s;
 
 	switch (_type[type]) {
-		case HPP:
-			s = path + "/" + name + type;
-			break;
-		case CPP:
-			s = path + "/" + name + type;
-			break;
-		case MAIN:
-			s = path + "/main.cpp";
-			break;
 		case MAKE:
 			s = path + "/Makefile";
 			break;
 		case CMAKE:
 			s = path + "/CMakeLists.txt";
+			break;
+		default:
+			s = path + "/" + name + type;
 			break;
 	}
 	std::ofstream file(s);
@@ -129,49 +97,10 @@ std::ofstream Writer::createFile(const std::string &name, const std::string &pat
 	return file;
 }
 
-void Writer::useTagCpp(const std::string &tag, const std::string &name)
+void Writer::useTagG(const std::string &tag, const std::string &name)
 {
-	switch (_tagCPP[tag]) {
-		case INCMAIN :
-			Writer::writeVectorInFile("#include \"", _inc, "\"");
-			return;
-		case INCCPP :
-			_of << "#include \"" << _include << "\"";
-			return;
-		case INHCPP :
-			if (!_inheritance.empty())
-				_of << " : " << _inheritance << "()";
-			return;
-		case CONSTRUCTORCPP :
-			_of << name << "::" << name << "()";
-			return;
-		case DESTRUCTORCPP :
-			_of << name << "::~" << name << "()";
-			return;
-	}
-}
-
-void Writer::useTagHpp(const std::string &tag, const std::string &name)
-{
-	switch (_tagHPP[tag]) {
-		case FILENAME :
-			_of << name;
-			return;
-		case CONSTRUCTOR :
-			_of << name << "();";
-			return;
-		case DESTRUCTOR :
-			_of << "~" << name << "();";
-			return;
-		case INCINH :
-			if (!_include.empty())
-				_of << "#include \"" << _include << "\"";
-			return;
-		case INHHPP :
-			if (!_inheritance.empty())
-				_of << " : public " << _inheritance;
-			return;
-	}
+	if (tag == "FileName")
+		_of << name;
 }
 
 void Writer::useTagMake(const std::string &tag, const std::string &path)
@@ -199,20 +128,14 @@ void Writer::useTag(const std::string &tag, const std::string &name, const std::
 		return;
 	}
 	switch (_type[type]) {
-		case HPP :
-			Writer::useTagHpp(tag, name);
-			return;
-		case CPP :
-			Writer::useTagCpp(tag, name);
-			return;
-		case MAIN :
-			Writer::useTagCpp(tag, name);
-			return;
 		case MAKE :
 			Writer::useTagMake(tag, path);
 			return;
 		case CMAKE :
 			Writer::useTagMake(tag, path);
+			return;
+		default:
+			Writer::useTagG(tag, path);
 			return;
 	}
 }

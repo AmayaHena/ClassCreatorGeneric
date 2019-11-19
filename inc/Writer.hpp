@@ -29,8 +29,6 @@ class Writer {
 		void setFile(const std::vector<std::string> &v);
 		void setSrc(const std::vector<std::string> &v);
 		void setInc(const std::vector<std::string> &v);
-		void setInheritance(const std::string &s);
-		void setInclude(const std::string &s);
 
 	private:
 
@@ -39,8 +37,7 @@ class Writer {
 		void processTag(const std::string &s, const std::string &name, const std::string &path, const std::string type);
 
 		/* Tag File By File */
-		void useTagCpp(const std::string &tag, const std::string &name);
-		void useTagHpp(const std::string &tag, const std::string &name);
+		void useTagG(const std::string &tag, const std::string &name);
 		void useTagMake(const std::string &tag, const std::string &path);
 
 		/* Tools */
@@ -50,16 +47,12 @@ class Writer {
 		std::ofstream createFile(const std::string &name, const std::string &path, const std::string &type);
 
 		/* enum for maps */
-		enum type {HPP, CPP, MAIN, MAKE, CMAKE};
-		enum tagMake {PROGNAME, SRCMAKE, SRCCMAKE, INCCMAKE};
-		enum tagHPP {FILENAME, CONSTRUCTOR, DESTRUCTOR, INCINH, INHHPP};
-		enum tagCPP {INCMAIN, INCCPP, INHCPP, CONSTRUCTORCPP, DESTRUCTORCPP};
+		enum type {MAKE, CMAKE};
+		enum tagMake {PROGNAME, SRCMAKE, SRCCMAKE, INCCMAKE, COMPILER};
 
 		/* Variables - Ressource for string switch */
 		std::map<std::string, type> _type;
 		std::map<std::string, tagMake> _tagMake;
-		std::map<std::string, tagHPP> _tagHPP;
-		std::map<std::string, tagCPP> _tagCPP;
 
 		/* Variables - Ressources for files writing */
 		std::vector<std::string> _header;
@@ -70,8 +63,6 @@ class Writer {
 		/* Variables - Ressources for files information (Tag) */
 		std::vector<std::string> _src;
 		std::vector<std::string> _inc;
-		std::string _inheritance;
-		std::string _include;
 
 };
 
