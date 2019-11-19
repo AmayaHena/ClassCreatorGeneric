@@ -3,14 +3,12 @@
 #ifndef /*#!FileName*/_HPP_
 #define /*#!FileName*/_HPP_
 
-/*#!IncludeInheritanceHpp*/
-
-class /*#!FileName*//*#!InheritanceHpp*/ {
+class /*#!FileName*/ {
 
     public:
 
-        /*#!ContructorMethod*/
-        /*#!DestructorMethod*/
+        /*#!FileName*/();
+        ~/*#!FileName*/();
 
     protected:
 

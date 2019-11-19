@@ -6,7 +6,7 @@
 
 NAME			=	/*#!ProgramName*/
 
-CXX				=	g++
+CXX				=	/*#!Compiler*/
 
 CXXFLAGS		=	-Wall -Wextra
 
