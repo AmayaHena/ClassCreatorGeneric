@@ -149,7 +149,7 @@ void Writer::useTag(const std::string &tag, const std::string &path, const std::
 	}
 }
 
-void Writer::processTag(const std::string &s, const std::string &name, const std::string &path, const std::string type)
+void Writer::processTag(const std::string &s, const std::string &path, const std::string type)
 {
 	std::string buf;
 	int i = 0;
@@ -163,7 +163,7 @@ void Writer::processTag(const std::string &s, const std::string &name, const std
 		while (s[i] != '*')
 			buf += s[i++];
 		i += 2;
-		Writer::useTag(buf, name, path, type);
+		Writer::useTag(buf, path, type);
 		j = s.find(_tag_ref, j + 1);
 		buf.clear();
 	}
@@ -178,7 +178,7 @@ bool Writer::create(const std::string &name, const std::string &path, const std:
 
 	for (const std::string &s: _file) {
 		if (Writer::occurenceNbInS(s, _tag_ref) > 0)
-			Writer::processTag(s, name, path, type);
+			Writer::processTag(s, path, type);
 		else
 			_of << s << std::endl;
 	}
