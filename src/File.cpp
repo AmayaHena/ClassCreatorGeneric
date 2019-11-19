@@ -80,6 +80,8 @@ std::vector<std::string> File::loadFile(const std::string &path, const bool requ
 	std::vector<std::string> v;
 
 	v.clear();
+	if (path.empty())
+		return v;
 	if (request == false)
 		return v;
 	if (File::checkFileExist(path) == false)
