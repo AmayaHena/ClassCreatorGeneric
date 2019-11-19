@@ -35,7 +35,7 @@ class State {
 		void createSrcRoot(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s);
 
 		/* main Makefile CMake at Root */
-		void generateStart(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &inc);
+		void generateStart(Parser &p, Writer &w, const std::vector<std::string> &file);
 		void generateMakefile(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &src);
 		void generateCMake(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &inc, const std::vector<std::string> &src);
 

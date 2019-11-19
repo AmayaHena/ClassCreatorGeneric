@@ -18,13 +18,13 @@ bool Core::architectCode(const std::vector<std::string> &arch_comp)
 		path_past = _p.getProjectName();
 		for (unsigned int i = 0; i < tmp.size(); i++)  {
 			path = path +  "/" + tmp[i];
-			if (_d.createDir(_p.getProjectName() + "/inc" + path)) {
-				_s.createHppArch(_p, _w, _f.getFileHpp(), tmp, path, i, path_past);
-				_inc.push_back("inc" + path + "/" + tmp[i] + ".hpp");
+			if (!_p.getPathInc().empty() && _d.createDir(_p.getProjectName() + "/inc" + path)) {
+				_s.createInc(_p, _w, _f.getFileInc(), path, tmp[i]);
+				_inc.push_back("inc" + path + "/" + tmp[i] + _p.getExtInc());
 			}
 			if (_d.createDir(_p.getProjectName() + "/src" + path)) {
- 				_s.createCppArch(_p, _w, _f.getFileCpp(), tmp, path, i);
-				_src.push_back("src" + path + "/" + tmp[i] + ".cpp");
+ 				_s.createSrc(_p, _w, _f.getFileSrc(), path, tmp[i]);
+				_src.push_back("src" + path + "/" + tmp[i] + _p.getExthSrc());
 			}
 			path_past = path;
 		}
@@ -37,11 +37,12 @@ bool Core::architectCode(const std::vector<std::string> &arch_comp)
 void Core::minimalCode()
 {
 	_w.setHeader(_f.getHeader());
+	_w.setCompiler(_p.getCompiler());
 	_d.createDir(".", _p.getProjectName());
 	_d.createDir(_p.getProjectName(), "inc");
 	_d.createDir(_p.getProjectName(), "src");
-	_s.createHppRoot(_p, _w, _f.getFileHpp(), _p.getProjectName());
-	_s.createCppRoot(_p, _w, _f.getFileCpp(), _p.getProjectName());
+	_s.createIncRoot(_p, _w, _f.getFileInc(), _p.getProjectName());
+	_s.createSrcRoot(_p, _w, _f.getFileSrc(), _p.getProjectName());
 	_inc.push_back("inc/" + _p.getProjectName() + ".hpp");
 	_src.push_back("src/" + _p.getProjectName() + ".cpp");
 }
@@ -85,16 +86,17 @@ bool Core::run(const std::vector<std::string> &v)
 	}
 	if (!_f.loadConfig(_p))
 		return false;
-	if (_p.getMain())
+	if (!_p.getPathStart().empty()) {
 		_src.push_back("main.cpp");
-
+		_s.generateStart(_p, _w, _f.getFileStart());
+	}
 	if (!Core::generateCode())
 		return false;
-
-	_s.generateMain(_p, _w, _f.getMain(), _inc);
-	_s.generateMakefile(_p, _w, _f.getMakefile(), _src);
-	_s.generateCMake(_p, _w, _f.getCMake(), _inc, _src);
-	if ((_p.getMakefile() || _p.getCMake()) && _p.getMain())
+	if (_p.getMakefile())
+		_s.generateMakefile(_p, _w, _f.getMakefile(), _src);
+	if (_p.getCMake())
+		_s.generateCMake(_p, _w, _f.getCMake(), _inc, _src);
+	if ((_p.getMakefile() || _p.getCMake()) && !_p.getPathStart().empty())
 		Core::buildProject();
 	return true;
 }

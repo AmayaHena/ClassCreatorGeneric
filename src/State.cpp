@@ -31,12 +31,11 @@ void State::createSrcRoot(Parser &p, Writer &w, const std::vector<std::string> &
 	w.create(s, p.getProjectName() + "/src", p.getExthSrc());
 }
 
-void State::generateStart(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &inc)
+void State::generateStart(Parser &p, Writer &w, const std::vector<std::string> &file)
 {
 	if (p.getPathStart().empty())
 		return;
 	w.setFile(file);
-	w.setInc(inc);
 	w.create("start", p.getProjectName(), p.getExthStart());
 }
 
