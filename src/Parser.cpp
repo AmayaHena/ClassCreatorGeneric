@@ -71,7 +71,7 @@ std::string Parser::getExtInc()
 
 bool Parser::helperCommand()
 {
-    std::cout << "usage: classCreator [Project Name] [-miMCfA] ..." << std::endl
+    std::cout << "usage: classCreator [Project Name] [-MCAcSsif] ..." << std::endl
               << std::endl << "\tOptions:" << std::endl
               << "\t-M\tmake a makefile" << std::endl
               << "\t-C\tmake CMakeLists.txt for CMake" << std::endl
@@ -83,7 +83,7 @@ bool Parser::helperCommand()
     return false;
 }
 
-void Parser::AVOptions(const std::vector<std::string> &v, const int i)
+void Parser::AVOptions(const std::vector<std::string> &v, const unsigned int i)
 {
 	for (int j = 1; v[i][j]; j++) {
 		switch (v[i][j]) {
@@ -108,6 +108,13 @@ void Parser::AVOptions(const std::vector<std::string> &v, const int i)
 		case 'i' :
 			_path_inc = v[i + 1];
 			break;
+		case 'f' :
+			for (unsigned z = i + 1; v[z][0] != '-'; z++) {
+				if (v[z].empty())
+					return;
+				_sub_files.push_back(v[z]);
+			}
+			break;
 		}
 	}
 }
@@ -119,12 +126,9 @@ bool Parser::parsingAV(const std::vector<std::string> &v)
 	if (v[0] == "-h")
 		return Parser::helperCommand();
 	_project_name = v[0];
-	for (unsigned int i = 1; i < v.size(); i++) {
+	for (unsigned int i = 1; i < v.size(); i++)
 		if (v[i][0] == '-')
 			Parser::AVOptions(v, i);
-		else
-			_sub_files.push_back(v[i]);
-	}
 	return true;
 }
 
