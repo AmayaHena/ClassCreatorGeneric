@@ -46,12 +46,18 @@ void Writer::setInc(const std::vector<std::string> &v)
 	_inc = v;
 }
 
+void Writer::setCompiler(const std::string &s)
+{
+	_compiler = s;
+}
+
 void Writer::cleanRessources()
 {
 	_of.close();
 	_file.clear();
 	_src.clear();
 	_inc.clear();
+	_compiler.clear();
 }
 
 int Writer::occurenceNbInS(const std::string &s, const std::string &tag)
@@ -117,6 +123,9 @@ void Writer::useTagMake(const std::string &tag, const std::string &path)
 			return;
 		case INCCMAKE :
 			Writer::writeVectorInFile("\t", _inc, "");
+			return;
+		case COMPILER :
+			_of << _compiler;
 			return;
 	}
 }

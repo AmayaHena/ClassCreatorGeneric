@@ -29,6 +29,7 @@ class Writer {
 		void setFile(const std::vector<std::string> &v);
 		void setSrc(const std::vector<std::string> &v);
 		void setInc(const std::vector<std::string> &v);
+		void setCompiler(const std::string &s);
 
 	private:
 
@@ -63,6 +64,7 @@ class Writer {
 		/* Variables - Ressources for files information (Tag) */
 		std::vector<std::string> _src;
 		std::vector<std::string> _inc;
+		std::string _compiler;
 
 };
 
