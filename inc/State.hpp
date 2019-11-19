@@ -27,8 +27,8 @@ class State {
 		/* Tools - state the writer and launch writer */
 
 		/* CPP HPP Interface for complex arch */
-		void createInc(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &path, unsigned int i, std::string name);
-		void createSrc(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &path, unsigned int i, std::string name);
+		void createInc(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &path, std::string name);
+		void createSrc(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &path, std::string name);
 
 		/* CPP HPP Interface at Root */
 		void createIncRoot(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s);

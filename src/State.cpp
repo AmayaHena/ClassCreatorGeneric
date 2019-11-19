@@ -7,13 +7,13 @@
 
 #include "State.hpp"
 
-void State::createInc(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &path, unsigned int i, std::string name)
+void State::createInc(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &path, std::string name)
 {
 	w.setFile(file);
 	w.create(name , p.getProjectName() + "/inc" + path, p.getExtInc());
 }
 
-void State::createSrc(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &path, unsigned int i, std::string name)
+void State::createSrc(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &path, std::string name)
 {
 	w.setFile(file);
 	w.create(name, p.getProjectName() + "/src" + path, p.getExthSrc());
