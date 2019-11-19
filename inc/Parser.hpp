@@ -34,12 +34,15 @@ class Parser {
 		std::vector<std::string> getSubFiles();
 		std::string getArchitecture();
 		std::string getCompiler();
+
 		std::string getPathStart();
-		std::string getExthStart();
 		std::string getPathSrc();
-		std::string getExthSrc();
 		std::string getPathInc();
+
+		std::string getExthStart();
+		std::string getExthSrc();
 		std::string getExtInc();
+
 		bool getMakefile();
 		bool getCMake();
 

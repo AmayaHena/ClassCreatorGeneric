@@ -44,19 +44,9 @@ std::string Parser::getPathStart()
 	return _path_start;
 }
 
-std::string Parser::getExthStart()
-{
-	return _ext_start;
-}
-
 std::string Parser::getPathSrc()
 {
 	return _path_src;
-}
-
-std::string Parser::getExthSrc()
-{
-	return _ext_src;
 }
 
 std::string Parser::getPathInc()
