@@ -34,8 +34,8 @@ class Writer {
 	private:
 
 		/* Create file and write in Private */
-		void useTag(const std::string &tag, const std::string &path, const std::string &type);
-		void processTag(const std::string &s, const std::string &path, const std::string type);
+		void useTag(const std::string &name, const std::string &tag, const std::string &path, const std::string &type);
+		void processTag(const std::string &s, const std::string &name, const std::string &path, const std::string type);
 
 		/* Tag File By File */
 		void useTagG(const std::string &tag, const std::string &name);

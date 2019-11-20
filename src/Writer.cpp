@@ -81,6 +81,9 @@ void Writer::writeVectorInFile(const std::string &s1, const std::vector<std::str
 
 std::ofstream Writer::createFile(const std::string &name, const std::string &path, const std::string &type)
 {
+	std::cout << "name : " << name << std::endl;
+	std::cout << "path : " << path << std::endl;
+	std::cout << "type : " << type << std::endl;
 	std::string s;
 
 	if (type == "Makefile")
@@ -121,20 +124,20 @@ void Writer::useTagMake(const std::string &tag, const std::string &path)
 	}
 }
 
-void Writer::useTag(const std::string &tag, const std::string &path, const std::string &type)
+void Writer::useTag(const std::string &name, const std::string &tag, const std::string &path, const std::string &type)
 {
 	if (tag == "Header") {
 		Writer::writeVectorInFile("", _header, "");
 		return;
 	}
-
-	if ((type == "Makefile") || type == "CMake")
+	if ((type == "Makefile") || type == "CMake") {
 		Writer::useTagMake(tag, path);
-	else
-		Writer::useTagG(tag, path);
+		return;
+	}
+	Writer::useTagG(tag, name);
 }
 
-void Writer::processTag(const std::string &s, const std::string &path, const std::string type)
+void Writer::processTag(const std::string &s, const std::string &name, const std::string &path, const std::string type)
 {
 	std::string buf;
 	int i = 0;
@@ -148,7 +151,7 @@ void Writer::processTag(const std::string &s, const std::string &path, const std
 		while (s[i] != '*')
 			buf += s[i++];
 		i += 2;
-		Writer::useTag(buf, path, type);
+		Writer::useTag(name, buf, path, type);
 		j = s.find(_tag_ref, j + 1);
 		buf.clear();
 	}
@@ -163,7 +166,7 @@ bool Writer::create(const std::string &name, const std::string &path, const std:
 
 	for (const std::string &s: _file) {
 		if (Writer::occurenceNbInS(s, _tag_ref) > 0)
-			Writer::processTag(s, path, type);
+			Writer::processTag(s, name, path, type);
 		else
 			_of << s << std::endl;
 	}
