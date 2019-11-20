@@ -16,9 +16,6 @@
 
 Writer::Writer() : _tag_ref("/*#!")
 {
-	_type["Makefile"] = MAKE;
-	_type["CMake"] = CMAKE;
-
 	_tagMake["ProgramName"] = PROGNAME;
 	_tagMake["SrcMakefile"] = SRCMAKE;
 	_tagMake["SrcCMake"] = SRCCMAKE;
@@ -86,17 +83,12 @@ std::ofstream Writer::createFile(const std::string &name, const std::string &pat
 {
 	std::string s;
 
-	switch (_type[type]) {
-		case MAKE:
-			s = path + "/Makefile";
-			break;
-		case CMAKE:
-			s = path + "/CMakeLists.txt";
-			break;
-		default:
-			s = path + "/" + name + type;
-			break;
-	}
+	if (type == "Makefile")
+		s = path + "/Makefile";
+	else if (type == "CMake")
+		s = path + "/CMakeLists.txt";
+	else
+		s = path + "/" + name + type;
 	std::ofstream file(s);
 	std::cout << "\033[0;32mFile \033[0m" << path << '/' << name << "\033[0;32m created\033[0m" << std::endl;
 	return file;
@@ -135,17 +127,11 @@ void Writer::useTag(const std::string &tag, const std::string &path, const std::
 		Writer::writeVectorInFile("", _header, "");
 		return;
 	}
-	switch (_type[type]) {
-		case MAKE :
-			Writer::useTagMake(tag, path);
-			return;
-		case CMAKE :
-			Writer::useTagMake(tag, path);
-			return;
-		default:
-			Writer::useTagG(tag, path);
-			return;
-	}
+
+	if ((type == "Makefile") || type == "CMake")
+		Writer::useTagMake(tag, path);
+	else
+		Writer::useTagG(tag, path);
 }
 
 void Writer::processTag(const std::string &s, const std::string &path, const std::string type)

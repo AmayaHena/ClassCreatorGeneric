@@ -52,7 +52,6 @@ class Writer {
 		enum tagMake {PROGNAME, SRCMAKE, SRCCMAKE, INCCMAKE, COMPILER};
 
 		/* Variables - Ressource for string switch */
-		std::map<std::string, type> _type;
 		std::map<std::string, tagMake> _tagMake;
 
 		/* Variables - Ressources for files writing */
