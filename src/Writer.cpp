@@ -81,9 +81,6 @@ void Writer::writeVectorInFile(const std::string &s1, const std::vector<std::str
 
 std::ofstream Writer::createFile(const std::string &name, const std::string &path, const std::string &type)
 {
-	std::cout << "name : " << name << std::endl;
-	std::cout << "path : " << path << std::endl;
-	std::cout << "type : " << type << std::endl;
 	std::string s;
 
 	if (type == "Makefile")
