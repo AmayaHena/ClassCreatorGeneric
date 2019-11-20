@@ -1,11 +1,11 @@
 /*#!Header*/
 
-/*#!IncludeCpp*/
+#include "/*#!FileName*///*#!FileName*/.hpp"
 
-/*#!ConstructorCpp*//*#!InheritanceCpp*/
+/*#!FileName*/::/*#!FileName*/()
 {
 }
 
-/*#!DestructorCpp*/
+/*#!FileName*/::~/*#!FileName*/()
 {
 }
