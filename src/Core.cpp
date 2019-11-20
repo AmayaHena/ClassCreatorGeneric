@@ -24,7 +24,7 @@ bool Core::architectCode(const std::vector<std::string> &arch_comp)
 			}
 			if (_d.createDir(_p.getProjectName() + "/src" + path)) {
  				_s.createSrc(_p, _w, _f.getFileSrc(), path, tmp[i]);
-				_src.push_back("src" + path + "/" + tmp[i] + _p.getExthSrc());
+				_src.push_back("src" + path + "/" + tmp[i] + _p.getExtSrc());
 			}
 			path_past = path;
 		}
@@ -84,14 +84,16 @@ bool Core::run(const std::vector<std::string> &v)
 		std::cout << "use helper : ./classCreator -h" << std::endl;
 		return false;
 	}
+
 	if (!_f.loadConfig(_p))
 		return false;
 	if (!_p.getPathStart().empty()) {
-		_src.push_back("main.cpp");
+		_src.push_back("start" + _p.getExtStart());
 		_s.generateStart(_p, _w, _f.getFileStart());
 	}
 	if (!Core::generateCode())
 		return false;
+
 	if (_p.getMakefile())
 		_s.generateMakefile(_p, _w, _f.getMakefile(), _src);
 	if (_p.getCMake())

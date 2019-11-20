@@ -16,7 +16,7 @@ void State::createInc(Parser &p, Writer &w, const std::vector<std::string> &file
 void State::createSrc(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &path, std::string name)
 {
 	w.setFile(file);
-	w.create(name, p.getProjectName() + "/src" + path, p.getExthSrc());
+	w.create(name, p.getProjectName() + "/src" + path, p.getExtSrc());
 }
 
 void State::createIncRoot(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s)
@@ -28,15 +28,16 @@ void State::createIncRoot(Parser &p, Writer &w, const std::vector<std::string> &
 void State::createSrcRoot(Parser &p, Writer &w, const std::vector<std::string> &file, const std::string &s)
 {
 	w.setFile(file);
-	w.create(s, p.getProjectName() + "/src", p.getExthSrc());
+	w.create(s, p.getProjectName() + "/src", p.getExtSrc());
 }
 
 void State::generateStart(Parser &p, Writer &w, const std::vector<std::string> &file)
 {
 	if (p.getPathStart().empty())
 		return;
+	std::cout << "START HERE" << std::endl;
 	w.setFile(file);
-	w.create("start", p.getProjectName(), p.getExthStart());
+	w.create("start", p.getProjectName(), p.getExtStart());
 }
 
 void State::generateMakefile(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &src)

@@ -54,12 +54,12 @@ std::string Parser::getPathInc()
 	return _path_inc;
 }
 
-std::string Parser::getExthStart()
+std::string Parser::getExtStart()
 {
 	return _ext_start;
 }
 
-std::string Parser::getExthSrc()
+std::string Parser::getExtSrc()
 {
 	return _ext_src;
 }

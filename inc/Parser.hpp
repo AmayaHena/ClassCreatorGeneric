@@ -39,8 +39,8 @@ class Parser {
 		std::string getPathSrc();
 		std::string getPathInc();
 
-		std::string getExthStart();
-		std::string getExthSrc();
+		std::string getExtStart();
+		std::string getExtSrc();
 		std::string getExtInc();
 
 		bool getMakefile();
