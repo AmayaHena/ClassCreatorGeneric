@@ -141,25 +141,14 @@ bool Parser::configCheck()
 	return true;
 }
 
-std::string Parser::parseExt(std::string &s)
-{
-	std::string ext;
-	int i = 0;
-
-	while (s[i++] != '.');
-	for (int j = 0; s[i]; i++)
-		ext[j] += s[i];
-	return ext;
-}
-
 void Parser::extension()
 {
 	if (!_path_start.empty())
-		_ext_start = Parser::parseExt(_path_start);
+		_ext_start = _path_start.substr(_path_start.find('.'), _path_start.length());
 	if (!_path_src.empty())
-		_ext_src = Parser::parseExt(_path_src);
+		_ext_src = _path_src.substr(_path_src.find('.'), _path_src.length());
 	if (!_path_inc.empty())
-		_ext_inc = Parser::parseExt(_path_inc);
+		_ext_inc = _path_inc.substr(_path_inc.find('.'), _path_inc.length());
 }
 
 bool Parser::parsingProceed(const std::vector<std::string> &v)

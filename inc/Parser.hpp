@@ -52,7 +52,6 @@ class Parser {
 		void AVOptions(const std::vector<std::string> &v, const unsigned int i);
 		bool parsingAV(const std::vector<std::string> &v);
 		void extension();
-		std::string parseExt(std::string &s);
 
 		/* Verification */
 		bool configCheck();
