@@ -105,5 +105,6 @@ bool File::loadConfig(Parser &p)
 	if ((p.getMakefile() && _make.empty())
 		|| (p.getCMake() && _cmake.empty()))
 		return false;
+	_header = loadFile("config/header.txt", true);
 	return true;
 }
