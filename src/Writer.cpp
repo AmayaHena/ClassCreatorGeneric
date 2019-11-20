@@ -89,7 +89,6 @@ std::ofstream Writer::createFile(const std::string &name, const std::string &pat
 		s = path + "/CMakeLists.txt";
 	else
 		s = path + "/" + name + type;
-	std::cout << "s : " << s << std::endl;
 	std::ofstream file(s);
 	std::cout << "\033[0;32mFile \033[0m" << path << '/' << name << "\033[0;32m created\033[0m" << std::endl;
 	return file;

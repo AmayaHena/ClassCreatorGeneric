@@ -35,7 +35,6 @@ void State::generateStart(Parser &p, Writer &w, const std::vector<std::string> &
 {
 	if (p.getPathStart().empty())
 		return;
-	std::cout << "START HERE" << std::endl;
 	w.setFile(file);
 	w.create("start", p.getProjectName(), p.getExtStart());
 }

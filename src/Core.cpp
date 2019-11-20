@@ -39,12 +39,21 @@ void Core::minimalCode()
 	_w.setHeader(_f.getHeader());
 	_w.setCompiler(_p.getCompiler());
 	_d.createDir(".", _p.getProjectName());
-	_d.createDir(_p.getProjectName(), "inc");
+
+	if (!_p.getPathInc().empty())
+		_d.createDir(_p.getProjectName(), "inc");
 	_d.createDir(_p.getProjectName(), "src");
-	_s.createIncRoot(_p, _w, _f.getFileInc(), _p.getProjectName());
-	_s.createSrcRoot(_p, _w, _f.getFileSrc(), _p.getProjectName());
-	_inc.push_back("inc/" + _p.getProjectName() + ".hpp");
-	_src.push_back("src/" + _p.getProjectName() + ".cpp");
+
+	if (!_p.getPathInc().empty()) {
+		_d.createDir(_p.getProjectName() + "/inc/" + _p.getProjectName());
+		_s.createInc(_p, _w, _f.getFileInc(), "/" + _p.getProjectName(), _p.getProjectName());
+	}
+
+	_d.createDir(_p.getProjectName() + "/src", _p.getProjectName());
+	_s.createSrc(_p, _w, _f.getFileSrc(), "/" + _p.getProjectName(), _p.getProjectName());
+
+	_inc.push_back("inc/" + _p.getProjectName() + "/" + _p.getProjectName() + _p.getExtInc());
+	_src.push_back("src/" + _p.getProjectName() + "/" + _p.getProjectName()  + _p.getExtSrc());
 }
 
 bool Core::generateCode()
