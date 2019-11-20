@@ -1,2 +1,4 @@
 # ClassCreatorGeneric
-Currently in devlopement (it doesn't work yet ;_;.. gomen)
+Working on linux only
+
+Functional, writing doc
