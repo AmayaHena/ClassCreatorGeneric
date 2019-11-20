@@ -87,12 +87,14 @@ bool Core::run(const std::vector<std::string> &v)
 
 	if (!_f.loadConfig(_p))
 		return false;
+	if (!Core::generateCode())
+		return false;
+
+
 	if (!_p.getPathStart().empty()) {
 		_src.push_back("start" + _p.getExtStart());
 		_s.generateStart(_p, _w, _f.getFileStart());
 	}
-	if (!Core::generateCode())
-		return false;
 
 	if (_p.getMakefile())
 		_s.generateMakefile(_p, _w, _f.getMakefile(), _src);
