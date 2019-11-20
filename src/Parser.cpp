@@ -71,7 +71,7 @@ std::string Parser::getExtInc()
 
 bool Parser::helperCommand()
 {
-    std::cout << "usage: classCreator [Project Name] [-MCAcSsif] ..." << std::endl
+    std::cout << "usage: classCreator [Project Name] [-MCcsiSfA] ..." << std::endl
               << std::endl << "\tOptions:" << std::endl
               << "\t-M\tmake a makefile" << std::endl
               << "\t-C\tmake CMakeLists.txt for CMake" << std::endl
@@ -79,6 +79,7 @@ bool Parser::helperCommand()
               << "\t-s\ttake your config file for src folder" << std::endl
               << "\t-i\ttake your config file for inc folder" << std::endl
               << "\t-S\ttake your config file for start function" << std::endl
+              << "\t-f\ttake argument as subfiles to create" << std::endl
               << "\t-A\ttake a file as parameter following this option and generate an architecture" << std::endl << std::endl;
     return false;
 }
