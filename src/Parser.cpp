@@ -144,22 +144,12 @@ bool Parser::configCheck()
 
 void Parser::extension()
 {
-	/* --- DEBUG --- */
-	/* std::cout << "_path_start : " << _path_start << std::endl;
-	std::cout << "_path_src : " << _path_src << std::endl;
-	std::cout << "_path_inc : " << _path_inc << std::endl; */
-	/* --- DEBUG --- */
 	if (!_path_start.empty())
 		_ext_start = _path_start.substr(_path_start.find('.'), _path_start.length());
 	if (!_path_src.empty())
 		_ext_src = _path_src.substr(_path_src.find('.'), _path_src.length());
 	if (!_path_inc.empty())
 		_ext_inc = _path_inc.substr(_path_inc.find('.'), _path_inc.length());
-	/* --- DEBUG --- */
-	/* std::cout << "_ext_start : " << _ext_start << std::endl;
-	std::cout << "_ext_src : " << _ext_src << std::endl;
-	std::cout << "_ext_inc : " << _ext_inc << std::endl; */
-	/* --- DEBUG --- */
 }
 
 bool Parser::parsingProceed(const std::vector<std::string> &v)
