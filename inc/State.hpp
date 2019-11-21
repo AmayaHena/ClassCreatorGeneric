@@ -39,10 +39,6 @@ class State {
 		void generateMakefile(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &src);
 		void generateCMake(Parser &p, Writer &w, const std::vector<std::string> &file, const std::vector<std::string> &inc, const std::vector<std::string> &src);
 
-	private:
-
-		Dir _d;
-
 };
 
 #endif /* !STATE_HPP_ */
